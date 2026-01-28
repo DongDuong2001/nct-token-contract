@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  walletAddress String   @id @unique
+  username      String?
+  bio           String?
+  avatarUrl     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  transactions  Transaction[]
+  
+  // Web3 Stats (Cached)
+  nctBalance    String   @default("0")
+  nftCount      Int      @default(0)
+  rewardPoints  Int      @default(0)
+}
+
+model Transaction {
+  id        String   @id @default(uuid())
+  type      String   // "MINT", "SWAP", "TRADE", "CLAIM"
+  hash      String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [walletAddress])
+  amount    String?
+  metadata  Json?    // Flexible storage for details (e.g. tokenId)
+  timestamp DateTime @default(now())
+}
