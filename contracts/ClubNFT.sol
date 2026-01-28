@@ -4,7 +4,6 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 
 /**
  * @title ClubNFT
@@ -12,9 +11,9 @@ import "@openzeppelin/contracts/utils/Counters.sol";
  * Allows minting of unique NFTs with metadata stored on IPFS
  */
 contract ClubNFT is ERC721, ERC721URIStorage, Ownable {
-    using Counters for Counters.Counter;
+    // using counters removed
 
-    Counters.Counter private _tokenIdCounter;
+    uint256 private _tokenIdCounter;
     uint256 public maxSupply = 10000;
     string public baseURI;
 
@@ -39,10 +38,10 @@ contract ClubNFT is ERC721, ERC721URIStorage, Ownable {
      */
     function mint(address to, string memory uri) external payable returns (uint256) {
         require(msg.value >= mintingFee, "Insufficient payment");
-        require(_tokenIdCounter.current() < maxSupply, "Max supply reached");
+        require(_tokenIdCounter < maxSupply, "Max supply reached");
 
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
+        uint256 tokenId = _tokenIdCounter;
+        _tokenIdCounter++;
 
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
@@ -62,13 +61,13 @@ contract ClubNFT is ERC721, ERC721URIStorage, Ownable {
      */
     function batchMint(address to, string[] calldata uris) external payable returns (uint256[] memory) {
         require(msg.value >= mintingFee * uris.length, "Insufficient payment");
-        require(_tokenIdCounter.current() + uris.length <= maxSupply, "Max supply exceeded");
+        require(_tokenIdCounter + uris.length <= maxSupply, "Max supply exceeded");
 
         uint256[] memory tokenIds = new uint256[](uris.length);
 
         for (uint256 i = 0; i < uris.length; i++) {
-            uint256 tokenId = _tokenIdCounter.current();
-            _tokenIdCounter.increment();
+            uint256 tokenId = _tokenIdCounter;
+            _tokenIdCounter++;
 
             _safeMint(to, tokenId);
             _setTokenURI(tokenId, uris[i]);
@@ -106,14 +105,14 @@ contract ClubNFT is ERC721, ERC721URIStorage, Ownable {
      * @dev Get total minted NFTs
      */
     function totalMinted() external view returns (uint256) {
-        return _tokenIdCounter.current();
+        return _tokenIdCounter;
     }
 
     /**
      * @dev Get remaining supply
      */
     function remainingSupply() external view returns (uint256) {
-        return maxSupply - _tokenIdCounter.current();
+        return maxSupply - _tokenIdCounter;
     }
 
     // Required overrides
