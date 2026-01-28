@@ -1,81 +1,114 @@
 @import "tailwindcss";
-@import "tw-animate-css";
+/* @import "tw-animate-css"; */
 
 /* Removed RainbowKit CSS import - using inline styles instead */
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated theme colors to match Neo Culture Tech brand (teal, navy, yellow) */
+  /* Neo-Culture Light Mode (Clean Tech) */
   --background: hsl(0 0% 100%);
-  --foreground: hsl(200 40% 10%);
+  --foreground: hsl(0 0% 5%);
   --card: hsl(0 0% 100%);
-  --card-foreground: oklch(0.98 0 0);
+  --card-foreground: hsl(0 0% 5%);
   --popover: hsl(0 0% 100%);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: hsl(200 60% 25%);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: hsl(210 40% 96%);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: hsl(210 40% 96%);
-  --muted-foreground: oklch(0.65 0.01 240);
-  --accent: hsl(188 50% 50%);
-  --accent-foreground: oklch(0.98 0 0);
+  --popover-foreground: hsl(0 0% 5%);
+
+  --primary: hsl(83 100% 45%);
+  /* Darker Lime for text readability on light */
+  --primary-foreground: hsl(0 0% 100%);
+
+  --secondary: hsl(0 0% 96%);
+  --secondary-foreground: hsl(0 0% 5%);
+
+  --muted: hsl(0 0% 96%);
+  --muted-foreground: hsl(0 0% 45%);
+
+  --accent: hsl(83 100% 45%);
+  --accent-foreground: hsl(0 0% 100%);
+
   --destructive: hsl(0 84.2% 60.2%);
-  --destructive-foreground: oklch(0.98 0 0);
-  --border: hsl(214.3 31.8% 91.4%);
-  --input: hsl(214.3 31.8% 91.4%);
-  --ring: hsl(188 50% 50%);
-  --chart-1: hsl(45 93% 47%);
-  --chart-2: hsl(188 50% 50%);
-  --chart-3: hsl(200 60% 25%);
-  --chart-4: hsl(45 93% 47%);
-  --chart-5: hsl(188 50% 50%);
+  --destructive-foreground: hsl(0 0% 98%);
+
+  --border: hsl(0 0% 90%);
+  --input: hsl(0 0% 90%);
+  --ring: hsl(83 100% 45%);
+
   --radius: 0.75rem;
+
+  --chart-1: hsl(83 100% 45%);
+  --chart-2: hsl(173 58% 39%);
+  --chart-3: hsl(197 37% 24%);
+  --chart-4: hsl(43 74% 66%);
+  --chart-5: hsl(27 87% 67%);
+
   --sidebar: hsl(0 0% 98%);
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: hsl(188 50% 50%);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.25 0.02 240);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.25 0.02 240);
-  --sidebar-ring: hsl(188 50% 50%);
+  --sidebar-foreground: hsl(240 5.3% 26.1%);
+  --sidebar-primary: hsl(240 5.9% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(240 4.8% 95.9%);
+  --sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
 .dark {
-  /* Updated dark mode colors to match brand */
-  --background: hsl(200 40% 8%);
-  --foreground: oklch(0.98 0 0);
-  --card: hsl(200 35% 12%);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: hsl(200 35% 10%);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: hsl(200 60% 25%);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: hsl(200 30% 18%);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: hsl(200 30% 18%);
-  --muted-foreground: oklch(0.65 0.01 240);
-  --accent: hsl(188 50% 50%);
-  --accent-foreground: hsl(200 40% 8%);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.98 0 0);
-  --border: hsl(200 30% 18%);
-  --input: hsl(200 30% 18%);
-  --ring: hsl(188 50% 50%);
-  --chart-1: hsl(45 93% 47%);
-  --chart-2: hsl(188 50% 50%);
-  --chart-3: hsl(200 60% 35%);
-  --chart-4: hsl(45 93% 47%);
-  --chart-5: hsl(188 50% 50%);
-  --sidebar: hsl(200 35% 10%);
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: hsl(188 50% 50%);
-  --sidebar-primary-foreground: hsl(200 40% 8%);
-  --sidebar-accent: hsl(200 30% 18%);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: hsl(200 30% 18%);
-  --sidebar-ring: hsl(188 50% 50%);
+  /* Neo-Culture Dark Mode (Cyber Void) */
+  --background: hsl(0 0% 4%);
+  /* #0a0a0a Void Black */
+  --foreground: hsl(0 0% 98%);
+  /* White text */
+
+  --card: hsl(0 0% 8%);
+  /* Dark Gray Card */
+  --card-foreground: hsl(0 0% 98%);
+
+  --popover: hsl(0 0% 8%);
+  --popover-foreground: hsl(0 0% 98%);
+
+  --primary: hsl(83 100% 57%);
+  /* #C9FF23 Neon Lime */
+  --primary-foreground: hsl(0 0% 5%);
+  /* Black text on lime */
+
+  --secondary: hsl(0 0% 12%);
+  --secondary-foreground: hsl(0 0% 98%);
+
+  --muted: hsl(0 0% 12%);
+  --muted-foreground: hsl(0 0% 60%);
+
+  --accent: hsl(0 0% 12%);
+  --accent-foreground: hsl(83 100% 57%);
+  /* Lime Text on hover */
+
+  --destructive: hsl(0 62% 30%);
+  --destructive-foreground: hsl(0 0% 98%);
+
+  --border: hsl(0 0% 15%);
+  --input: hsl(0 0% 15%);
+  --ring: hsl(83 100% 57%);
+  /* Lime Ring */
+
+  /* Neon Charts Spectrum */
+  --chart-1: hsl(83 100% 57%);
+  /* Lime */
+  --chart-2: hsl(180 100% 50%);
+  /* Cyan */
+  --chart-3: hsl(280 100% 65%);
+  /* Purple */
+  --chart-4: hsl(320 100% 60%);
+  /* Pink */
+  --chart-5: hsl(50 100% 50%);
+  /* Yellow */
+
+  --sidebar: hsl(0 0% 6%);
+  --sidebar-foreground: hsl(0 0% 98%);
+  --sidebar-primary: hsl(83 100% 57%);
+  --sidebar-primary-foreground: hsl(0 0% 5%);
+  --sidebar-accent: hsl(0 0% 12%);
+  --sidebar-accent-foreground: hsl(0 0% 98%);
+  --sidebar-border: hsl(0 0% 15%);
+  --sidebar-ring: hsl(83 100% 57%);
 }
 
 @theme inline {
@@ -124,6 +157,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
