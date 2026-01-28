@@ -1,29 +1,53 @@
 # Hardhat files
-cache
-artifacts
-deployments/*.json
+cache/
+artifacts/
+deployments/localhost/
+deployments/hardhat/
 
 # TypeChain files
-typechain
-typechain-types
+typechain/
+typechain-types/
 
 # Coverage
-coverage
+coverage/
 coverage.json
 
 # Environment variables
 .env
 .env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
 
 # Dependencies
-node_modules
+node_modules/
+.pnpm-store
 
 # Logs
+logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Vercel
+.vercel
 
 # OS files
 .DS_Store
+*.pem
 
 # IDE
-.vscode
-.idea
+.vscode/
+.idea/
+*.swp
+*.swo
