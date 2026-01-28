@@ -4,14 +4,15 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
 
 /**
  * @title SwapRouter
  * @dev A simple token swap router for NCT ecosystem
  * Allows swapping between NCT and other ERC-20 tokens with slippage protection
  */
-contract SwapRouter is Ownable, ReentrancyGuard {
+contract SwapRouter is Ownable, ReentrancyGuard, Pausable {
     using SafeERC20 for IERC20;
 
     // Swap fee (in basis points, e.g., 25 = 0.25%)
@@ -98,7 +99,7 @@ contract SwapRouter is Ownable, ReentrancyGuard {
         address tokenOut,
         uint256 amountIn,
         uint256 minAmountOut
-    ) external nonReentrant returns (uint256 amountOut) {
+    ) external nonReentrant whenNotPaused returns (uint256 amountOut) {
         require(supportedPairs[tokenIn][tokenOut], "Pair not supported");
         require(amountIn > 0, "Amount must be greater than 0");
 
@@ -169,5 +170,19 @@ contract SwapRouter is Ownable, ReentrancyGuard {
     function emergencyWithdraw(address token) external onlyOwner {
         uint256 balance = IERC20(token).balanceOf(address(this));
         IERC20(token).safeTransfer(owner(), balance);
+    }
+
+    /**
+     * @dev Pause the router
+     */
+    function pause() external onlyOwner {
+        _pause();
+    }
+
+    /**
+     * @dev Unpause the router
+     */
+    function unpause() external onlyOwner {
+        _unpause();
     }
 }
