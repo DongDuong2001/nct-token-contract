@@ -19,31 +19,38 @@ export function Navigation() {
   const pathname = usePathname()
 
   return (
-    <nav className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+    <nav className="border-b border-white/5 bg-black/60 backdrop-blur-xl sticky top-0 z-50 transition-all duration-300">
+      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         <Link
           href="/"
-          className="flex items-center gap-3 font-bold text-lg text-foreground hover:opacity-80 transition-opacity"
+          className="flex items-center gap-3 group"
         >
-          <Image src="/neo-culture-tech-logo.png" alt="Neo Culture Tech" width={40} height={40} className="h-10 w-10" />
-          <span className="hidden sm:inline">
-            Neo Culture <span className="text-accent">Tech</span>
+          <div className="relative">
+             <div className="absolute -inset-1 bg-primary rounded-full blur opacity-20 group-hover:opacity-60 transition duration-500" />
+             <Image src="/neo-culture-tech-logo.png" alt="Neo Culture Tech" width={44} height={44} className="relative h-11 w-11" />
+          </div>
+          <span className="hidden sm:inline font-bold text-xl tracking-tight">
+            Neo Culture <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Tech</span>
           </span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-1">
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center gap-1 bg-secondary/30 p-1 rounded-full border border-white/5">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200",
+                "px-5 py-2 text-sm font-medium rounded-full transition-all duration-300 relative overflow-hidden",
                 pathname === item.href
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted",
+                  ? "text-white shadow-[0_0_10px_rgba(59,130,246,0.5)]"
+                  : "text-muted-foreground hover:text-white"
               )}
             >
-              {item.label}
+              {pathname === item.href && (
+                <span className="absolute inset-0 bg-primary/20 rounded-full z-0" />
+              )}
+              <span className="relative z-10">{item.label}</span>
             </Link>
           ))}
         </div>
