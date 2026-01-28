@@ -1,231 +1,61 @@
-// Contract ABIs only - addresses are fetched from server
-// IMPORTANT: Contract addresses are PUBLIC blockchain data
-// They are fetched server-side to avoid security warnings
+import { defineChain } from "viem";
+import { sepolia, polygonAmoy } from "wagmi/chains";
 
-export const NCT_TOKEN_ABI = [
-  {
-    inputs: [
-      { internalType: "address", name: "to", type: "address" },
-      { internalType: "uint256", name: "amount", type: "uint256" },
-    ],
-    name: "mint",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+// --------------------------------------------------------------------------
+// CONTRACT ADDRESSES (PLACEHOLDERS - Update after deployment)
+// --------------------------------------------------------------------------
+export const CONTRACTS = {
+  [sepolia.id]: {
+    NCT: "0x0000000000000000000000000000000000000000", // Update this
+    ClubNFT: "0x0000000000000000000000000000000000000000", // Update this
+    Marketplace: "0x0000000000000000000000000000000000000000", // Update this
+    SwapRouter: "0x0000000000000000000000000000000000000000", // Update this
+    RewardManager: "0x0000000000000000000000000000000000000000", // Update this
   },
-  {
-    inputs: [{ internalType: "uint256", name: "amount", type: "uint256" }],
-    name: "burn",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+  [polygonAmoy.id]: {
+    NCT: "0x0000000000000000000000000000000000000000",
+    ClubNFT: "0x0000000000000000000000000000000000000000",
+    Marketplace: "0x0000000000000000000000000000000000000000",
+    SwapRouter: "0x0000000000000000000000000000000000000000",
+    RewardManager: "0x0000000000000000000000000000000000000000",
   },
-  {
-    inputs: [],
-    name: "pause",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "unpause",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "address", name: "account", type: "address" }],
-    name: "balanceOf",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "totalSupply",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "decimals",
-    outputs: [{ internalType: "uint8", name: "", type: "uint8" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "paused",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      { indexed: true, internalType: "address", name: "from", type: "address" },
-      { indexed: true, internalType: "address", name: "to", type: "address" },
-      { indexed: false, internalType: "uint256", name: "value", type: "uint256" },
-    ],
-    name: "Transfer",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      { indexed: true, internalType: "address", name: "owner", type: "address" },
-      { indexed: true, internalType: "address", name: "spender", type: "address" },
-      { indexed: false, internalType: "uint256", name: "value", type: "uint256" },
-    ],
-    name: "Approval",
-    type: "event",
-  },
-] as const
+} as const;
 
-export const SWAP_ROUTER_ABI = [
-  {
-    inputs: [
-      { internalType: "uint256", name: "amountIn", type: "uint256" },
-      { internalType: "uint256", name: "amountOutMin", type: "uint256" },
-      { internalType: "address[]", name: "path", type: "address[]" },
-      { internalType: "address", name: "to", type: "address" },
-      { internalType: "uint256", name: "deadline", type: "uint256" },
-    ],
-    name: "swapExactTokensForTokens",
-    outputs: [{ internalType: "uint256[]", name: "amounts", type: "uint256[]" }],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "tokenA", type: "address" },
-      { internalType: "address", name: "tokenB", type: "address" },
-    ],
-    name: "getAmountsOut",
-    outputs: [{ internalType: "uint256[]", name: "amounts", type: "uint256[]" }],
-    stateMutability: "view",
-    type: "function",
-  },
-] as const
+// --------------------------------------------------------------------------
+// ABI DEFINITIONS (Minimal for Frontend)
+// --------------------------------------------------------------------------
 
-export const MARKETPLACE_ABI = [
-  {
-    inputs: [
-      { internalType: "address", name: "nftContract", type: "address" },
-      { internalType: "uint256", name: "tokenId", type: "uint256" },
-      { internalType: "uint256", name: "price", type: "uint256" },
-    ],
-    name: "listNFT",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "nftContract", type: "address" },
-      { internalType: "uint256", name: "tokenId", type: "uint256" },
-    ],
-    name: "buyNFT",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "nftContract", type: "address" },
-      { internalType: "uint256", name: "tokenId", type: "uint256" },
-    ],
-    name: "cancelListing",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "nftContract", type: "address" },
-      { internalType: "uint256", name: "tokenId", type: "uint256" },
-    ],
-    name: "getListing",
-    outputs: [
-      {
-        components: [
-          { internalType: "address", name: "seller", type: "address" },
-          { internalType: "uint256", name: "price", type: "uint256" },
-          { internalType: "bool", name: "active", type: "bool" },
-        ],
-        internalType: "struct Marketplace.Listing",
-        name: "",
-        type: "tuple",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-] as const
-
-export const CLUB_NFT_ABI = [
-  {
-    inputs: [{ internalType: "string", name: "uri", type: "string" }],
-    name: "mint",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "address", name: "owner", type: "address" }],
-    name: "balanceOf",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
-    name: "ownerOf",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
-    name: "tokenURI",
-    outputs: [{ internalType: "string", name: "", type: "string" }],
-    stateMutability: "view",
-    type: "function",
-  },
-] as const
-
-export const REWARD_MANAGER_ABI = [
-  {
-    inputs: [
-      { internalType: "address", name: "user", type: "address" },
-      { internalType: "uint256", name: "amount", type: "uint256" },
-    ],
-    name: "addReward",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "claimRewards",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "address", name: "user", type: "address" }],
-    name: "getClaimableRewards",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "address", name: "user", type: "address" }],
-    name: "getClaimedRewards",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function",
-  },
-] as const
+export const ABIs = {
+  NCT: [
+    "function balanceOf(address owner) view returns (uint256)",
+    "function approve(address spender, uint256 amount) returns (bool)",
+    "function allowance(address owner, address spender) view returns (uint256)",
+    "function mint(address to, uint256 amount) external", // Assuming Mintable
+  ],
+  ClubNFT: [
+    "function mint(address to, string uri) external payable returns (uint256)",
+    "function batchMint(address to, string[] uris) external payable returns (uint256[])",
+    "function mintingFee() view returns (uint256)",
+    "function totalSupply() view returns (uint256)",
+    "function balanceOf(address owner) view returns (uint256)",
+    "function tokenURI(uint256 tokenId) view returns (string)",
+    "function ownerOf(uint256 tokenId) view returns (address)",
+  ],
+  Marketplace: [
+    "function listNFT(address nftContract, uint256 tokenId, uint256 price) external",
+    "function buyNFT(address nftContract, uint256 tokenId) external",
+    "function fetchMarketItems() view returns (tuple(uint256 itemId, address nftContract, uint256 tokenId, address seller, address owner, uint256 price, bool sold)[])",
+  ],
+  SwapRouter: [
+    "function swapEthForNct() payable",
+    "function swapNctForEth(uint256 nctAmount)",
+    "function getExchangeRate() view returns (uint256)",
+  ],
+  RewardManager: [
+    "function claimRewards() external",
+    "function getClaimableRewards(address user) view returns (uint256)",
+    "function getClaimedRewards(address user) view returns (uint256)",
+    "function getTotalRewards(address user) view returns (uint256)",
+    "function activityRewards(bytes32 hash) view returns (uint256)",
+  ],
+} as const;
