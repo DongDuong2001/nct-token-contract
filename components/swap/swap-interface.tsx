@@ -1,65 +1,120 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useAccount, useWriteContract, useWaitForTransactionReceipt, useBalance } from "wagmi"
+import { parseEther } from "viem"
+import { CONTRACTS, ABIs } from "@/lib/web3/contracts"
+import { sepolia } from "wagmi/chains"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { SwapTokenSelector } from "./swap-token-selector"
-import { SwapPreview } from "./swap-preview"
-import { ArrowDownUp } from "lucide-react"
+import { ArrowDownUp, Loader2 } from "lucide-react"
+import { useToast } from "@/components/ui/use-toast"
 
 export function SwapInterface() {
-  const isConnected = false
-  const [tokenIn, setTokenIn] = useState<string>("")
-  const [tokenOut, setTokenOut] = useState<string>("")
+  const { address, isConnected, chainId } = useAccount()
+  const { toast } = useToast()
+  
+  const activeChainId = chainId || sepolia.id
+  // @ts-ignore
+  const contracts = CONTRACTS[activeChainId] || CONTRACTS[sepolia.id]
+
+  const [tokenIn, setTokenIn] = useState<string>("ETH")
+  const [tokenOut, setTokenOut] = useState<string>("NCT")
   const [amountIn, setAmountIn] = useState<string>("")
-  const [showPreview, setShowPreview] = useState(false)
   const [slippage, setSlippage] = useState<number>(0.5)
 
-  const handleSwap = () => {
-    if (!tokenIn || !tokenOut || !amountIn) {
-      alert("Please fill in all fields")
-      return
+  // Web3 Balance Check
+  const { data: ethBalance } = useBalance({ address })
+  
+  // Write Contract
+  const { writeContract, data: hash, isPending: isSwapping, error: swapError } = useWriteContract()
+
+  // Wait for Tx
+  const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
+    hash,
+  })
+
+  useEffect(() => {
+    if (isConfirmed) {
+      toast({ title: "Swap Successful! 💸", description: "Your assets have been exchanged." })
+      setAmountIn("")
     }
-    setShowPreview(true)
+  }, [isConfirmed, toast])
+
+  const handleSwap = () => {
+    if (!tokenIn || !tokenOut || !amountIn) return
+
+    try {
+      if (tokenIn === "ETH" && tokenOut === "NCT") {
+        // Swap ETH for NCT
+        writeContract({
+          address: contracts.SwapRouter,
+          abi: ABIs.SwapRouter,
+          functionName: "swapEthForNct",
+          value: parseEther(amountIn),
+        })
+      } else if (tokenIn === "NCT" && tokenOut === "ETH") {
+        // Swap NCT for ETH (Needs Approval first - Simplified here)
+        // TODO: Add Approve Step
+        writeContract({
+          address: contracts.SwapRouter,
+          abi: ABIs.SwapRouter,
+          functionName: "swapNctForEth",
+          args: [parseEther(amountIn)],
+        })
+      }
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   const handleSwapTokens = () => {
-    const temp = tokenIn
     setTokenIn(tokenOut)
-    setTokenOut(temp)
+    setTokenOut(tokenIn)
   }
 
   if (!isConnected) {
     return (
-      <Card className="p-8 text-center">
+      <Card className="p-8 text-center bg-card/50 border-dashed">
         <p className="text-muted-foreground mb-4">Connect your wallet to start swapping</p>
-        <p className="text-sm text-muted-foreground mt-2">Web3 functionality will be available in production</p>
       </Card>
     )
   }
 
   return (
     <>
-      <Card className="p-6 space-y-6">
+      <Card className="p-6 space-y-6 bg-card/50 backdrop-blur-sm border-primary/20">
         {/* Token In */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">From</label>
+          <label className="text-sm font-medium text-foreground flex justify-between">
+            <span>From</span>
+            <span className="text-xs text-muted-foreground">
+              Bal: {tokenIn === "ETH" ? ethBalance?.formatted.slice(0, 6) : "0"}
+            </span>
+          </label>
           <div className="flex gap-2">
             <Input
               type="number"
               placeholder="0.00"
               value={amountIn}
               onChange={(e) => setAmountIn(e.target.value)}
-              className="flex-1"
+              className="flex-1 font-mono text-lg bg-background/50"
             />
             <SwapTokenSelector value={tokenIn} onChange={setTokenIn} />
           </div>
         </div>
 
         {/* Swap Button */}
-        <div className="flex justify-center">
-          <Button variant="outline" size="icon" onClick={handleSwapTokens} className="rounded-full bg-transparent">
+        <div className="flex justify-center relative">
+          <div className="absolute inset-x-0 top-1/2 h-px bg-border" />
+          <Button 
+            variant="outline" 
+            size="icon" 
+            onClick={handleSwapTokens} 
+            className="rounded-full bg-background relative z-10 hover:rotate-180 transition-transform duration-500"
+          >
             <ArrowDownUp className="h-4 w-4" />
           </Button>
         </div>
@@ -68,51 +123,33 @@ export function SwapInterface() {
         <div className="space-y-2">
           <label className="text-sm font-medium text-foreground">To</label>
           <div className="flex gap-2">
-            <Input type="number" placeholder="0.00" disabled className="flex-1" />
+            <Input type="number" placeholder="0.00" disabled className="flex-1 font-mono text-lg bg-background/20" />
             <SwapTokenSelector value={tokenOut} onChange={setTokenOut} />
           </div>
         </div>
 
-        {/* Slippage Settings */}
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">Slippage Tolerance</label>
-          <div className="flex gap-2">
-            {[0.1, 0.5, 1].map((value) => (
-              <Button
-                key={value}
-                variant={slippage === value ? "default" : "outline"}
-                size="sm"
-                onClick={() => setSlippage(value)}
-              >
-                {value}%
-              </Button>
-            ))}
-            <Input
-              type="number"
-              placeholder="Custom"
-              value={slippage}
-              onChange={(e) => setSlippage(Number.parseFloat(e.target.value))}
-              className="w-20"
-            />
-          </div>
-        </div>
-
-        {/* Swap Button */}
-        <Button onClick={handleSwap} disabled={!tokenIn || !tokenOut || !amountIn} className="w-full" size="lg">
-          Review Swap
+        {/* Action Button */}
+        <Button 
+          onClick={handleSwap} 
+          disabled={!amountIn || isSwapping || isConfirming} 
+          className="w-full font-bold text-lg h-12 relative overflow-hidden group" 
+        >
+          <span className="relative z-10 flex items-center justify-center gap-2">
+            {isSwapping ? (
+              <>Check Wallet <Loader2 className="animate-spin" /></>
+            ) : isConfirming ? (
+              <>Confirming... <Loader2 className="animate-spin" /></>
+            ) : (
+              "Swap Assets"
+            )}
+          </span>
+          <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/40 transition-all duration-300" />
         </Button>
-      </Card>
 
-      {/* Preview Modal */}
-      {showPreview && (
-        <SwapPreview
-          tokenIn={tokenIn}
-          tokenOut={tokenOut}
-          amountIn={amountIn}
-          slippage={slippage}
-          onClose={() => setShowPreview(false)}
-        />
-      )}
+        {swapError && (
+          <p className="text-destructive text-sm text-center">{swapError.message.slice(0, 50)}...</p>
+        )}
+      </Card>
     </>
   )
 }
