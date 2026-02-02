@@ -35,7 +35,7 @@ export async function getTokenBalance(address: string, tokenAddress: string, pub
     return balance as bigint
   } catch (error) {
     console.error("Error fetching token balance:", error)
-    return 0n
+    return BigInt(0)
   }
 }
 
