@@ -1,58 +1,69 @@
 # Neo-Culture Token (NCT) Ecosystem
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)  
-[![Solidity](https://img.shields.io/badge/Solidity-^0.8.x-blue.svg)]() [![Hardhat](https://img.shields.io/badge/Hardhat-v2-purple.svg)]() [![Next.js](https://img.shields.io/badge/Next.js-v14-black.svg)]()  
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**Neo-Culture Token (NCT)** is a production-ready Web3 ecosystem built for the Neo Culture Tech community. It features token swaps, an NFT marketplace, reward distribution, and a comprehensive dashboard — all optimized for testnet deployment.
+**Neo-Culture Token (NCT)** is a production-ready Web3 ecosystem designed for the Neo Culture Tech community. It facilitates token swaps, NFT marketplace operations, reward distribution, and provides a comprehensive dashboard optimized for testnet deployment.
 
 ---
 
-## 📌 Features
+## Features
 
 ### Smart Contracts
-- ERC-20 Token: Fully compliant with minting, burning, pausable functionality  
-- SwapRouter: Secure token swaps with slippage protection and fee management  
-- ClubNFT: ERC-721 NFT contract for community members  
-- Marketplace: NFT trading using NCT with platform fee handling  
-- RewardManager: Activity-based reward distribution system  
 
-### Frontend
-- Swap Interface (`/swap`): Exchange NCT and other ERC-20 tokens  
-- NFT Marketplace (`/market`): Browse & purchase NFTs  
-- NFT Minting (`/mint`): Create and upload NFTs to IPFS  
-- Rewards Dashboard (`/rewards`): Track & claim community rewards  
-- User Profile (`/profile`): View wallet balances, NFT gallery & transaction history  
-- Web3 Integration: Using Wagmi + Viem + RainbowKit for seamless wallet connection  
+* **ERC-20 Token**: Compliant standard implementation with minting, burning, and pausable functionality.
+* **SwapRouter**: Secure token swapping mechanism with slippage protection and fee management.
+* **ClubNFT**: ERC-721 NFT contract implementation for community membership.
+* **Marketplace**: Decentralized trading platform using NCT with configurable platform fees.
+* **RewardManager**: automated reward distribution system based on user activity.
+
+### Frontend Application
+
+* **Swap Interface** (`/swap`): Exchange functionality for NCT and ERC-20 tokens.
+* **NFT Marketplace** (`/market`): Browsing and purchasing capabilities for NFTs.
+* **NFT Minting** (`/mint`): Interface for creating and uploading NFTs to IPFS.
+* **Rewards Dashboard** (`/rewards`): Tracking and claiming system for community rewards.
+* **User Profile** (`/profile`): Wallet balance visualization, NFT gallery, and transaction history.
+* **Web3 Integration**: Implements Wagmi, Viem, and RainbowKit for wallet connectivity.
 
 ---
 
-## 🚀 Quick Start
+## Quick Start Configuration
 
 ### Prerequisites
-- Node.js v18+ and npm (or yarn/pnpm)  
-- A testnet wallet with test ETH (e.g., via Sepolia faucet)  
-- Alchemy or Infura RPC endpoint (optional but recommended)  
+
+* Node.js v18 or higher
+* npm (or yarn/pnpm)
+* A compatible Ethereum testnet wallet (e.g., MetaMask) with testnet ETH (Sepolia)
+* (Optional) Alchemy or Infura RPC endpoint
 
 ### Installation
-```bash
-# Clone the repository
-git clone https://github.com/F4P1E/nct-token-contract.git
-cd nct-token-contract
 
-# Install dependencies
-npm install
+1. Clone the repository:
 
-# Copy environment template
-cp .env.example .env.local
-````
+    ```bash
+    git clone https://github.com/DongDuong2001/nct-token-contract.git
+    cd nct-token-contract
+    ```
+
+2. Install dependencies:
+
+    ```bash
+    npm install
+    ```
+
+3. Configure environment variables:
+
+    ```bash
+    cp .env.example .env.local
+    ```
 
 ### Environment Setup
 
-Edit `.env.local` with your configuration:
+Edit `.env.local` to include your specific configuration details:
 
 ```env
 # Web3 Configuration
-NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_wallet_connect_project_id
+NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_project_id
 NEXT_PUBLIC_NCT_TOKEN_ADDRESS=0x...
 NEXT_PUBLIC_SWAP_ROUTER_ADDRESS=0x...
 NEXT_PUBLIC_MARKETPLACE_ADDRESS=0x...
@@ -60,65 +71,84 @@ NEXT_PUBLIC_CLUB_NFT_ADDRESS=0x...
 NEXT_PUBLIC_REWARD_MANAGER_ADDRESS=0x...
 
 # Smart Contract Deployment
-PRIVATE_KEY=your_testnet_private_key_here
-SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/YOUR_ALCHEMY_KEY
-ETHERSCAN_API_KEY=your_etherscan_api_key
+PRIVATE_KEY=your_private_key
+SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/YOUR_KEY
+ETHERSCAN_API_KEY=your_api_key
 ```
 
-### Development
+### Development Server
+
+Start the local development server:
 
 ```bash
-# Start the frontend dev server
 npm run dev
-
-# Navigate to http://localhost:3000 in your browser
 ```
 
-### Smart Contract Workflow
+The application will be accessible at <http://localhost:3000>.
+
+### Smart Contract Operations
+
+Compile contracts:
 
 ```bash
-# Compile contracts
 npm run compile
+```
 
-# Run all tests
+Run test suite:
+
+```bash
 npm run test
+```
 
-# Run tests with gas usage reporting
+Generate gas usage report:
+
+```bash
 npm run test:gas
+```
 
-# Generate coverage report
+Generate code coverage report:
+
+```bash
 npm run test:coverage
 ```
 
 ---
 
-## 📦 Deployment
+## Deployment Procedures
 
-### Deploy to Sepolia Testnet
+### Sepolia Testnet
+
+Deploy the NCT token:
 
 ```bash
-# Deploy NCT token (if not already deployed)
 npm run deploy:sepolia
+```
 
-# Deploy the full ecosystem contracts
+Deploy the complete ecosystem:
+
+```bash
 npm run deploy:ecosystem:sepolia
+```
 
-# Run setup scripts for ecosystem configuration
+Configure ecosystem settings:
+
+```bash
 npm run setup:ecosystem:sepolia
 ```
 
-### Deploy Frontend (e.g. to Vercel)
+### Frontend Deployment
+
+Build the application for production:
 
 ```bash
 npm run build
-# Follow your hosting provider’s steps (e.g. `vercel deploy`)
 ```
 
-> For detailed instructions, consult [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md).
+Refer to `DEPLOYMENT_GUIDE.md` for detailed hosting instructions.
 
 ---
 
-## 📁 Project Structure
+## Project Architecture
 
 ```
 nct-token-contract/
@@ -128,121 +158,94 @@ nct-token-contract/
 │   ├── ClubNFT.sol
 │   ├── Marketplace.sol
 │   └── RewardManager.sol
-├── scripts/                  # Deployment & setup scripts
-│   ├── deploy.js
-│   ├── deploy-ecosystem.js
-│   └── setup-ecosystem.js
-├── test/                     # Contract tests
-│   ├── NeoCultureToken.test.js
-│   ├── SwapRouter.test.js
-│   ├── Marketplace.test.js
-│   └── RewardManager.test.js
-├── app/                      # Next.js frontend application
-│   ├── page.tsx              # Home page
+├── scripts/                  # Deployment and setup scripts
+├── test/                     # Contract test suites
+├── app/                      # Next.js App Router structure
+│   ├── page.tsx
 │   ├── swap/
 │   ├── market/
 │   ├── mint/
 │   ├── rewards/
 │   ├── profile/
 │   └── layout.tsx
-├── components/               # React UI & Web3 components
-│   ├── web3/
-│   ├── swap/
-│   ├── market/
-│   ├── rewards/
-│   └── profile/
-├── lib/                      # Utilities and helpers
-│   ├── web3/
-│   └── utils.ts
+├── components/               # React components
+├── lib/                      # Utility functions
 ├── public/                   # Static assets
-├── hardhat.config.js         # Hardhat configuration
-├── package.json
-├── tsconfig.json
-└── README.md
+└── hardhat.config.js         # Hardhat configuration
 ```
 
 ---
 
-## 🧪 Testing
+## Testing Verification
 
-### Run all tests
+### Automated Testing
+
+Run the full test suite to verify contract logic:
 
 ```bash
 npm run test
 ```
 
-### View test coverage
+### Manual Verification Steps
 
-```bash
-npm run test:coverage
-```
+1. Connect wallet using a supported provider.
+2. Execute a token swap on the swap interface.
+3. Browse and purchase an NFT from the marketplace.
+4. Mint a new NFT asset.
+5. Claim accumulated rewards.
+6. Verify wallet balances and history on the profile page.
 
-### Manual Testing Checklist
-
-* Connect wallet using MetaMask or supported wallet
-* Swap tokens on `/swap`
-* Browse NFTs on `/market`
-* Mint an NFT via `/mint`
-* Claim rewards via `/rewards`
-* View your profile on `/profile`
-
-See [TESTING_GUIDE.md](./TESTING_GUIDE.md) for in-depth testing documentation.
+See `TESTING_GUIDE.md` for comprehensive testing scenarios.
 
 ---
 
-## 🔐 Security
+## Security Implementation
 
-* Uses audited, battle-tested code from OpenZeppelin (ERC-20, ERC-721)
-* Reentrancy protection mechanisms in place
-* Role-based access control for admin functions
-* Input validation on all external interactions
-* SafeERC20 patterns for secure token transfers
-* Cap on maximum supply to prevent uncontrolled inflation
-
----
-
-## ⚙️ Gas & Performance Optimizations
-
-* Compiler optimization flags enabled (e.g., `200 runs`)
-* Lean storage layout to minimize gas usage
-* Reduced external calls and efficient contract logic
-* Balanced deployment cost vs runtime efficiency
+* **Standard Compliance**: Utilizes OpenZeppelin's audited implementation of ERC-20 and ERC-721 standards.
+* **Protection Mechanisms**: Implements reentrancy guards for sensitive functions.
+* **Access Control**: Role-based permissions for administrative actions.
+* **Validation**: Strict input validation for all external calls.
+* **Supply Management**: Hard caps on maximum token supply.
 
 ---
 
-## 🗺️ Roadmap
+## Performance Optimization
 
-* Introduce **staking** functionality
-* Add **governance** features (DAO integration)
-* Token **vesting** contracts for team & community
-* Cross-chain deployments (beyond Ethereum)
-* Enhanced NFT features: royalties, collections, rare drops
-* DAO governance for ecosystem management
+* **Compiler Settings**: Optimization enabled for contract compilation.
+* **Storage Layout**: Optimized for minimal gas consumption.
+* **Execution**: Efficient logic to reduce external calls and runtime costs.
 
 ---
 
-## 🧑‍💻 Support
+## Future Roadmap
 
-If you encounter any issues or have questions:
-
-* Create an **Issue** on GitHub
-* Refer to [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)
-* Review [TESTING_GUIDE.md](./TESTING_GUIDE.md)
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+* **Staking Mechanism**: Implementation of token staking for yield.
+* **Governance**: DAO integration for community voting.
+* **Vesting**: Smart contracts for linear token vesting.
+* **Cross-chain**: Deployment to additional compatible networks.
+* **NFT Enhancements**: Royalty standards and collection management.
 
 ---
 
-## ⚠️ Disclaimer
+## Support
 
-This codebase is provided *as-is* for **testnet** use. Always perform a comprehensive security audit before deploying to **mainnet**. Never expose or use real funds, live mainnet private keys, or unverified contracts in production environments.
+For technical issues or inquiries:
+
+* Submit an Issue on the GitHub repository.
+* Consult the deployment and testing guides included in this repository.
 
 ---
 
-*Built with ❤️ by Neo-Culture Tech*
+## License
 
-Innovating through decentralized systems.
+This project is licensed under the MIT License. Please refer to the LICENSE file for full text.
+
+---
+
+## Disclaimer
+
+This software is provided for testing and development purposes on testnet environments. Comprehensive security audits are required prior to any mainnet deployment. Do not use real assets or production private keys with this codebase in its current state.
+
+---
+
+*Developed by Neo-Culture Tech*
