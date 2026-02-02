@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useAccount, useWriteContract, useWaitForTransactionReceipt, useBalance } from "wagmi"
-import { parseEther } from "viem"
+import { parseEther, formatEther } from "viem"
 import { CONTRACTS, ABIs } from "@/lib/web3/contracts"
 import { sepolia } from "wagmi/chains"
 import { Card } from "@/components/ui/card"
@@ -91,7 +91,7 @@ export function SwapInterface() {
           <label className="text-sm font-medium text-foreground flex justify-between">
             <span>From</span>
             <span className="text-xs text-muted-foreground">
-              Bal: {tokenIn === "ETH" ? ethBalance?.formatted.slice(0, 6) : "0"}
+              Bal: {tokenIn === "ETH" ? (ethBalance ? formatEther(ethBalance.value).slice(0, 6) : "0") : "0"}
             </span>
           </label>
           <div className="flex gap-2">
