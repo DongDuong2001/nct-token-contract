@@ -38,7 +38,7 @@ async function main() {
                 console.log(`🎨 New NFT Minted: ID ${tokenId} to ${to}`);
 
                 try {
-                    await prisma.nFTMint.create({
+                    await prisma.nftMint.create({
                         data: {
                             tokenId: Number(tokenId),
                             owner: to!,
