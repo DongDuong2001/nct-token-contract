@@ -86,7 +86,7 @@ export function RewardsList() {
         </div>
         <Button 
           onClick={handleClaim} 
-          disabled={!claimableWei || claimableWei === 0n || isClaiming || isConfirming} 
+          disabled={!claimableWei || claimableWei === BigInt(0) || isClaiming || isConfirming} 
           className="w-full font-bold"
         >
           {isClaiming ? "Check Wallet..." : isConfirming ? "Confirming..." : "Claim Rewards"}
