@@ -24,9 +24,9 @@ export function Features() {
   ]
 
   return (
-    <section id="features" className="py-20 md:py-28">
+    <section id="features" className="py-24 md:py-32">
       <div className="container mx-auto px-4">
-        <div className="mb-16 text-center">
+        <div className="mb-20 text-center">
           <h2 className="mb-4 text-balance text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
             Built with{" "}
             <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">Security</span>{" "}
@@ -38,7 +38,7 @@ export function Features() {
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-10 md:grid-cols-3">
           {features.map((feature, index) => {
             const Icon = feature.icon
             return (
