@@ -27,7 +27,7 @@
     "test": "hardhat test",
     "test:coverage": "hardhat coverage",
     "test:gas": "REPORT_GAS=true hardhat test",
-    "indexer": "ts-node scripts/indexer.ts"
+    "indexer": "ts-node --esm scripts/indexer.ts"
   },
   "dependencies": {
     "@coinbase/wallet-sdk": "^4.3.7",
