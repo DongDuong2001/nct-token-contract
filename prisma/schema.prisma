@@ -38,7 +38,7 @@ model Transaction {
 // WEB3 INDEXING MODELS
 // --------------------------------------------------------------------------
 
-model NftMint {
+model MintEvent {
   id        String   @id @default(cuid())
   tokenId   Int      @unique
   owner     String
@@ -47,7 +47,7 @@ model NftMint {
   createdAt DateTime @default(now())
 }
 
-model RewardClaim {
+model ClaimEvent {
   id        String   @id @default(cuid())
   user      String
   amount    String   @default("0") // Stored as string to handle BigInt
