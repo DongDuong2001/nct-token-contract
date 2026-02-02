@@ -138,10 +138,10 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: 0rem;
+  --radius-md: 0rem;
+  --radius-lg: 0rem;
+  --radius-xl: 0rem;
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -161,6 +161,49 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-mono uppercase tracking-tight;
+  }
+}
+
+@utility neobrutal-shadow {
+  box-shadow: 4px 4px 0px 0px var(--shadow-color, rgba(0, 0, 0, 1));
+}
+
+@utility neobrutal-shadow-sm {
+  box-shadow: 2px 2px 0px 0px var(--shadow-color, rgba(0, 0, 0, 1));
+}
+
+@utility neobrutal-shadow-lg {
+  box-shadow: 6px 6px 0px 0px var(--shadow-color, rgba(0, 0, 0, 1));
+}
+
+@layer base {
+  :root {
+    --shadow-color: rgba(0, 0, 0, 1);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --shadow-color: rgba(255, 255, 255, 0.9);
+    }
+  }
+
+  /* Also support manual .dark class switching */
+  .dark {
+    --shadow-color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+@utility neobrutal-border {
+  border-width: 2px;
+  border-style: solid;
 }
 
 /* RainbowKit styles - inline to avoid MIME type issues */
