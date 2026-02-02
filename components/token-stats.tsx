@@ -23,9 +23,9 @@ export function TokenStats() {
   ]
 
   return (
-    <section className="border-b border-border bg-muted/30 py-16 md:py-20">
+    <section className="border-b border-border bg-muted/30 py-20 md:py-24">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-12 md:grid-cols-4">
           {stats.map((stat, index) => (
             <div key={index} className="flex flex-col items-center text-center group">
               <div className="mb-3 text-4xl font-bold bg-gradient-to-br from-primary to-primary/60 bg-clip-text text-transparent md:text-5xl group-hover:scale-110 transition-transform duration-300">
