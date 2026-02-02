@@ -22,10 +22,14 @@ const _crimsonText = V0_Font_Crimson_Text({ subsets: ["latin"], weight: ["400", 
 // Using the built-in Geist fonts from the geist package instead of next/font/google
 
 export const metadata: Metadata = {
-  title: "Neo-Culture Token (NCT) | The Future of Digital Culture",
+  title: "NCT | Web3 Testnet",
   description:
     "Neo-Culture Token powers the next generation of creative communities. Connect your wallet and mint demo tokens on Sepolia testnet.",
-  generator: "v0.app",
+  icons: {
+    icon: "/neo-culture-tech-logo.png",
+    shortcut: "/neo-culture-tech-logo.png",
+    apple: "/neo-culture-tech-logo.png",
+  },
 }
 
 export default function RootLayout({
