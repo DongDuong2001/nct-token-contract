@@ -38,7 +38,7 @@ async function main() {
                 console.log(`🎨 New NFT Minted: ID ${tokenId} to ${to}`);
 
                 try {
-                    await prisma.nftMint.create({
+                    await prisma.mintEvent.create({
                         data: {
                             tokenId: Number(tokenId),
                             owner: to!,
@@ -67,7 +67,7 @@ async function main() {
                 console.log(`💰 Rewards Claimed: ${amount} by ${user}`);
 
                 try {
-                    await prisma.rewardClaim.create({
+                    await prisma.claimEvent.create({
                         data: {
                             user: user!,
                             amount: amount!.toString(),
