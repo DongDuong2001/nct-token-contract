@@ -1,6 +1,8 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import { GlitchText } from "@/components/ui/glitch-text"
+import { Marquee } from "@/components/ui/marquee"
 import { ArrowRight, Sparkles, Zap } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
@@ -22,7 +24,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-8 flex justify-center"
+            className="mb-12 flex justify-center"
           >
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
@@ -41,7 +43,7 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="mb-8 inline-flex items-center gap-2 rounded-full border border-accent/50 bg-accent/10 px-5 py-2.5 text-sm font-medium text-accent backdrop-blur-md shadow-[0_0_15px_rgba(147,51,234,0.3)] hover:shadow-[0_0_25px_rgba(147,51,234,0.5)] transition-shadow cursor-default"
+            className="mb-12 inline-flex items-center gap-2 rounded-full border border-accent/50 bg-accent/10 px-6 py-3 text-sm font-medium text-accent backdrop-blur-md shadow-[0_0_15px_rgba(147,51,234,0.3)] hover:shadow-[0_0_25px_rgba(147,51,234,0.5)] transition-shadow cursor-default"
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
@@ -54,11 +56,11 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="mb-6 text-balance font-sans text-5xl font-black tracking-tighter text-foreground md:text-6xl lg:text-7xl"
+            className="mb-8 text-balance font-sans text-5xl font-black tracking-tighter text-foreground md:text-7xl lg:text-8xl"
           >
             The Future of{" "}
             <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x">
-              Digital Culture
+              <GlitchText text="Digital Culture" />
             </span>
           </motion.h1>
 
@@ -66,7 +68,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="mb-10 text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl max-w-3xl mx-auto"
+            className="mb-14 text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl max-w-3xl mx-auto"
           >
             Neo-Culture Token (NCT) powers the next generation of creative communities. 
             Experience zero-friction swapping, NFT marketplace integration, and community rewards.
@@ -76,7 +78,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+            className="flex flex-col items-center justify-center gap-6 sm:flex-row"
           >
             <Link href="/swap">
               <Button
@@ -121,6 +123,13 @@ export function Hero() {
           </motion.div>
 
         </div>
+      </div>
+      
+      {/* Marquee Banner */}
+      <div className="absolute bottom-0 left-0 w-full border-t-2 border-black dark:border-white bg-primary text-primary-foreground font-mono font-bold text-lg py-2 z-20">
+        <Marquee repeat={10} className="w-full">
+          MX MINTING LIVE • SEPOLIA TESTNET • DECENTRALIZED CREATIVITY • NFT INTEGRATION • DAO GOVERNANCE • 
+        </Marquee>
       </div>
     </section>
   )
