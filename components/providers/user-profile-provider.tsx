@@ -123,7 +123,7 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
     const newProfile = {
       address,
       isConnected: true,
-      ethBalance: ethData ? ethData.formatted : "0",
+      ethBalance: ethData ? formatEther(ethData.value) : "0",
       nctBalance: nctData ? formatEther(nctData) : "0",
       nftCount: nftData ? Number(nftData) : 0,
       rewardPoints: rewardData ? Number(formatEther(rewardData)) : 0, // Assuming 18 decimals
