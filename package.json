@@ -26,7 +26,8 @@
     "start": "next start --webpack",
     "test": "hardhat test",
     "test:coverage": "hardhat coverage",
-    "test:gas": "REPORT_GAS=true hardhat test"
+    "test:gas": "REPORT_GAS=true hardhat test",
+    "indexer": "ts-node scripts/indexer.ts"
   },
   "dependencies": {
     "@coinbase/wallet-sdk": "^4.3.7",
