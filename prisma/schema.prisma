@@ -38,7 +38,7 @@ model Transaction {
 // WEB3 INDEXING MODELS
 // --------------------------------------------------------------------------
 
-model NFTMint {
+model NftMint {
   id        String   @id @default(cuid())
   tokenId   Int      @unique
   owner     String
