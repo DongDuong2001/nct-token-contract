@@ -33,3 +33,24 @@ model Transaction {
   metadata  Json?    // Flexible storage for details (e.g. tokenId)
   timestamp DateTime @default(now())
 }
+
+// --------------------------------------------------------------------------
+// WEB3 INDEXING MODELS
+// --------------------------------------------------------------------------
+
+model NFTMint {
+  id        String   @id @default(cuid())
+  tokenId   Int      @unique
+  owner     String
+  uri       String
+  txHash    String   @unique
+  createdAt DateTime @default(now())
+}
+
+model RewardClaim {
+  id        String   @id @default(cuid())
+  user      String
+  amount    String   @default("0") // Stored as string to handle BigInt
+  txHash    String   @unique
+  createdAt DateTime @default(now())
+}
