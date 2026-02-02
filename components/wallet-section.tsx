@@ -30,7 +30,7 @@ export function WalletSection() {
 
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
-      })
+      }) as string[]
 
       const account = accounts[0]
       setAddress(account)
@@ -90,17 +90,17 @@ export function WalletSection() {
   }
 
   return (
-    <section className="border-t border-border py-20 md:py-28">
+    <section className="border-t border-border py-24 md:py-32">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-4xl">
-          <div className="mb-12 text-center">
+          <div className="mb-16 text-center">
             <h2 className="mb-4 text-balance text-3xl font-bold text-foreground md:text-4xl">Try It Out on Testnet</h2>
             <p className="text-pretty text-lg text-muted-foreground">
               Connect your wallet and mint demo NCT tokens on Sepolia testnet. No real ETH required.
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-10 md:grid-cols-2">
             {/* Wallet Connection Card */}
             <Card className="border-border bg-card">
               <CardHeader>
